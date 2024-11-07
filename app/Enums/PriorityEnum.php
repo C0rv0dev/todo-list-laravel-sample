@@ -21,4 +21,13 @@ enum PriorityEnum: int
             self::HIGH->value => 'High',
         };
     }
+
+    public static function getLabeledValues(): array
+    {
+        return [
+            self::LOW->value => self::getLabel(self::LOW->value),
+            self::MEDIUM->value => self::getLabel(self::MEDIUM->value),
+            self::HIGH->value => self::getLabel(self::HIGH->value),
+        ];
+    }
 }

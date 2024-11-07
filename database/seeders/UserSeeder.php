@@ -13,6 +13,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = \Faker\Factory::create();
+
         User::factory(5)
             ->hasTodos(5)
             ->create();
@@ -25,8 +27,8 @@ class UserSeeder extends Seeder
 
         for($i = 0; $i < 15; $i++) {
             $user->todos()->create([
-                'title' => 'Test Todo',
-                'content' => 'Test Content',
+                'title' => $faker->sentence,
+                'content' => $faker->paragraph,
                 'priority' => PriorityEnum::getRandom(),
             ]);
         }

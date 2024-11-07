@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
-    public function index()
+    public function create()
     {
-        return 'todo';
+        return view('form');
     }
 
     public function store()
@@ -16,18 +17,21 @@ class TodoController extends Controller
         return 'store';
     }
 
+    public function edit(Todo $todo)
+    {
+        return 'edit';
+    }
+
     public function update()
     {
         return 'update';
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
-        return 'destroy';
-    }
+        $todo = Todo::find($id);
+        $todo->delete();
 
-    public function show()
-    {
-        return 'show';
+        return redirect()->route('home');
     }
 }

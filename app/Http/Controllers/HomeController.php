@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $todos = $user->todos()
             ->orderBy('priority', 'desc')
-            ->get();
+            ->paginate(15);
 
         return view('home', compact('todos'));
     }

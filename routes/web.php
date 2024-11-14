@@ -5,10 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// get, post, put, delete, patch 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
     Route::group(['prefix' => 'todo'], function () {
         Route::get('/create', [TodoController::class, 'create'])->name('todo.create');
         Route::get('/edit/{todo}', [TodoController::class, 'edit'])->name('todo.edit');

@@ -9,7 +9,28 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{ __('Dashboard') }}
+
+                            <div class="w-50">
+                                <form id="priorityForm" action="{{ route('home') }}" method="GET">
+                                    <select onchange="submitForm()" class="form-control" name="priority" id="priority">
+                                        <option value="{{ null }}">
+                                            All
+                                        </option>
+
+                                        @foreach (App\Enums\PriorityEnum::getLabeledValues() as $value => $label)
+                                            <option value="{{ $value }}"
+                                                {{ request()->get('priority') == $value ? 'selected' : '' }}>
+                                                {{ $label }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="d-flex flex-column card-body">
                         @foreach ($todos as $todo)
@@ -56,11 +77,18 @@
                             </div>
                         @endforeach
                     </div>
- 
+
                     <div class="card-footer">
                         {{ $todos->links() }}
                     </div>
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
+
+<script>
+    function submitForm() {
+        document.getElementById('priorityForm').submit();
+    }
+</script>

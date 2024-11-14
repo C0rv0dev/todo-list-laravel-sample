@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -21,15 +22,22 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         /**
          * @var \App\Models\User $user
          */
         $user = Auth::user();
 
+        $priority = $request->get('priority');
+
         $todos = $user->todos()
-            ->orderBy('priority', 'desc')
+            ->when($priority, function ($query, $priority) {
+                return $query->where('priority', $priority);
+            })
+            ->when(!$priority, function ($query) {
+                return $query->orderBy('priority', 'desc');
+            })
             ->paginate(15);
 
         return view('home', compact('todos'));

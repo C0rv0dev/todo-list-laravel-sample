@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTodoRequest;
 use App\Models\Todo;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -12,19 +13,36 @@ class TodoController extends Controller
         return view('form');
     }
 
-    public function store()
+    public function store(StoreTodoRequest $request)
     {
-        return 'store';
+        $data = $request->validated();
+
+        Todo::create([
+            'user_id' => Auth::id(),
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'priority' => $data['priority'],
+        ]);
+
+        return redirect()->route('home');
     }
 
     public function edit(Todo $todo)
     {
-        return 'edit';
+        return view('form', compact('todo'));
     }
 
-    public function update()
+    public function update(StoreTodoRequest $request, Todo $todo)
     {
-        return 'update';
+        $data = $request->validated();
+
+        $todo->update([
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'priority' => $data['priority'],
+        ]);
+
+        return redirect()->route('home');
     }
 
     public function destroy(int $id)

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <button class="btn btn-lg btn-success position-absolute bottom-0 end-0 m-5">
+        <button class="btn btn-lg btn-success position-fixed bottom-0 end-0 m-5">
             <a href="{{ route('todo.create') }}" class="text-white text-decoration-none">Create Todo</a>
         </button>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTodoRequest;
 use App\Models\Todo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class TodoController extends Controller
 {
@@ -52,4 +53,20 @@ class TodoController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function changestatus(Todo $todo)
+    {
+
+        $todo->status = !$todo->status;
+        $todo->save();
+
+
+        return redirect()->back();
+
+
+
+    }
+
+
+
 }

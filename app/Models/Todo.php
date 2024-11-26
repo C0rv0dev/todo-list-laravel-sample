@@ -12,7 +12,8 @@ class Todo extends Model
         'user_id',
         'title', 
         'content', 
-        'priority'
+        'priority',
+        'status'
     ];
 
     /**

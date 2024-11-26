@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->unsignedTinyInteger('priority')->default(2);
             $table->unsignedBigInteger('user_id');
+            $table->boolean('status')->default(false);
             
             $table->foreign('user_id')
                 ->references('id')

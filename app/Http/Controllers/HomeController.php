@@ -38,6 +38,7 @@ class HomeController extends Controller
             ->when(!$priority, function ($query) {
                 return $query->orderBy('priority', 'desc');
             })
+            ->where('status',0) 
             ->paginate(15);
 
         return view('home', compact('todos'));

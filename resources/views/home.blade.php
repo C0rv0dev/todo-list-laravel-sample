@@ -57,7 +57,18 @@
                                                     {{ $todo->content }}
                                                 </div>
                                                 <hr />
+                                                
                                                 <div class="d-flex justify-content-around align-items-center text-end">
+                                                <form id="Completedo-{{$todo->id}}"action="{{ route('todo.changestatus', $todo) }}" method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <div class="form-check">
+                                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onchange="alert('Todo Completed');submitStatusForm('Completedo-{{$todo->id}}')">
+                                                      <label class="form-check-label" for="flexCheckDefault">
+                                                        Complete 
+                                                      </label>
+                                                    </div>
+                                                </form>
                                                     <a class="btn btn-warning" href="{{ route('todo.edit', $todo) }}">
                                                         Edit
                                                     </a>
@@ -90,5 +101,10 @@
 <script>
     function submitForm() {
         document.getElementById('priorityForm').submit();
+    }
+
+    function submitStatusForm(formid) {
+        document.getElementById(formid).submit();
+
     }
 </script>
